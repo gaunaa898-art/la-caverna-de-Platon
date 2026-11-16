@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="description" content="Experiencia de Realidad Aumentada educativa: Alegoría de la Caverna de Platón" />
+  <title>AR Caverna de Platón | Filosofía</title>
+
+  <!-- Three.js + WebXR (CDN gratuito, sin API key) -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Pantalla de inicio / verificación de compatibilidad -->
+  <div id="start-screen" class="overlay">
+    <div class="card">
+      <h1>🕳️ Alegoría de la Caverna</h1>
+      <p class="subtitle">Platón · República · Libro VII</p>
+      
+      <div id="compat-status" class="status">
+        <p>Comprobando compatibilidad del dispositivo...</p>
+      </div>
+
+      <div id="instructions" class="instructions hidden">
+        <h2>Cómo usar la experiencia</h2>
+        <ol>
+          <li>Presiona <strong>“Iniciar AR”</strong></li>
+          <li>Permite el acceso a la cámara</li>
+          <li>Apunta a una superficie plana (mesa, piso)</li>
+          <li>Toca la pantalla para colocar la caverna</li>
+          <li>Explora tocando los objetos</li>
+        </ol>
+        <p class="note">Requiere HTTPS, cámara y un dispositivo compatible con WebXR + ARCore (Android recomendado).</p>
+      </div>
+
+      <button id="btn-start-ar" class="btn primary hidden" disabled>
+        Iniciar Realidad Aumentada
+      </button>
+
+      <button id="btn-fallback" class="btn secondary hidden">
+        Ver versión 3D (sin AR)
+      </button>
+
+      <p class="footer-info">Asignatura: Filosofía / Formación Ética y Ciudadana</p>
+    </div>
+  </div>
+
+  <!-- Controles AR (se muestran solo cuando la sesión AR está activa) -->
+  <div id="ar-ui" class="hidden">
+    <div id="placement-hint" class="hint">
+      Mueve el teléfono hasta ver el círculo. Toca para colocar.
+    </div>
+    <button id="btn-exit-ar" class="btn-exit">Salir de AR</button>
+  </div>
+
+  <!-- Controles de la versión fallback 3D -->
+  <div id="fallback-ui" class="hidden">
+    <div class="fallback-controls">
+      <button id="btn-reset-view" class="btn small">Reiniciar vista</button>
+      <button id="btn-back-start" class="btn small">Volver al inicio</button>
+    </div>
+    <p class="fallback-hint">Arrastra para rotar · Pellizca para acercar/alejar · Toca los objetos</p>
+  </div>
+
+  <!-- Panel de información pedagógica (aparece al tocar objetos) -->
+  <div id="info-panel" class="info-panel hidden">
+    <button id="btn-close-info" class="close-btn">×</button>
+    <h3 id="info-title"></h3>
+    <p id="info-text"></p>
+  </div>
+
+  <!-- Canvas de Three.js -->
+  <canvas id="c"></canvas>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
